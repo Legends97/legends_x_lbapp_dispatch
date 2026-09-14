@@ -70,3 +70,61 @@ h2 {
   margin-top: 10px;
   font-size: 12px;
 }
+
+#dispatch-list {
+  max-height: 320px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.dispatch-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.dispatch-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.dispatch-time {
+  font-weight: normal;
+  font-size: 12px;
+  color: #a8e3a0;
+}
+
+.dispatch-postal {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #c9c9c9;
+}
+
+.dispatch-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dispatch-actions button {
+  border: none;
+  border-radius: 15px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.dispatch-accept {
+  background-color: #4a9c4a;
+  color: #a8e3a0;
+}
+
+.dispatch-decline {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #e08a8a;
+}

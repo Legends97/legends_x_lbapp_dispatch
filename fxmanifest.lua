@@ -11,7 +11,8 @@ version '1.1.0'
 
 files {
     "html/*.*",
-    "locales/*.lua"
+    "locales/*.lua",
+    "postals.json"
 }
 
 shared_script {

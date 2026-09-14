@@ -8,4 +8,5 @@ return {
     ['location'] = 'Местоположение',
     ['unknown_location'] = 'Неизвестное местоположение',
     ['time'] = 'Время',
+    ['dispatch_accepted_notify'] = 'Ваш экстренный вызов принят',
 }

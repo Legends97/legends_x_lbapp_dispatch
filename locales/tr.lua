@@ -8,4 +8,5 @@ return {
     ['location'] = 'Konum',
     ['unknown_location'] = 'Bilinmeyen konum',
     ['time'] = 'Zaman',
+    ['dispatch_accepted_notify'] = 'Acil durum çağrınız kabul edildi',
 }

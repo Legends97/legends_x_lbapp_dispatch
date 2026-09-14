@@ -8,4 +8,5 @@ return {
     ['location'] = 'Lieu',
     ['unknown_location'] = 'Lieu inconnu',
     ['time'] = 'Heure',
+    ['dispatch_accepted_notify'] = 'Votre appel d\'urgence a été accepté',
 }

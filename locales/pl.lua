@@ -8,4 +8,5 @@ return {
     ['location'] = 'Lokalizacja',
     ['unknown_location'] = 'Nieznana lokalizacja',
     ['time'] = 'Czas',
+    ['dispatch_accepted_notify'] = 'Twoje wezwanie alarmowe zostało przyjęte',
 }

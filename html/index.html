@@ -18,6 +18,7 @@
       <!-- <p>Weiter auf den Satelliten zeigen</p> -->
       <button id="message-button" class="rounded-button"><i class="fas fa-comment"></i> Message</button>
       <button id="call-button" class="rounded-button"><i class="fas fa-phone-alt"></i> Call</button>
+      <button id="dispatch-button" class="rounded-button" style="display: none;"><i class="fas fa-list"></i> Notrufe</button>
     </div>
 
     <!-- Screen 2: What's the emergency? -->
@@ -52,6 +53,14 @@
       <p>Beantworten Sie Fragen, um eine schnellere Reaktion zu erhalten.</p>
       <p class="disclaimer">Ihre Position und Medizinische ID können geteilt werden.</p>
       <button id="make-call" class="rounded-button"><i class="fas fa-phone"></i> Notfall anrufen</button>
+    </div>
+
+    <!-- Screen 5: Active Dispatches for job members -->
+    <div id="screen5" style="display: none;">
+      <h2>Aktive Notrufe</h2>
+      <div id="dispatch-list"></div>
+      <p id="dispatch-empty" class="disclaimer">Keine aktiven Notrufe</p>
+      <button id="dispatch-back" class="rounded-button"><i class="fas fa-arrow-left"></i> Zurück</button>
     </div>
 
   </div>

@@ -35,13 +35,23 @@ Config.Jobs = {
 ------------ DISPATCH & SETTINGS --------
 Config.TimeOut = 10 -- in seconds, until the message button can be used again to send dispatch
 Config.CallCode = "10-19"
-Config.DispatchSystem = 'custom'
+Config.DispatchSystem = 'app'
+-- 'app' for the built-in dispatch queue in this App (list, accept, waypoint)
 -- 'framework' for default core dispatch
 -- 'lb-tablet' for LB-Tablet (only Police & Ambulance, others are using framework!)
 -- 'qs-dispatch' for Quasar Dispatch
 -- 'aty' for aty_dispatch
 -- 'cd_dispatch' for cd_dispatch
 -- 'custom' for custom script
+
+Config.DispatchExpireMinutes = 15
+-- how long an unaccepted dispatch stays in the App's queue before it auto-expires
+
+Config.Postals = {
+    enabled = true,
+    file = 'postals.json'
+    -- {x, y, code} lookup table, nearest point to the dispatch location is shown as its postal
+}
 
 Config.Notification = 'lb-phone'
 -- 'lb-phone' uses lb-app-notifications

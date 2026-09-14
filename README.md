@@ -37,11 +37,20 @@ Custom Dispatches App for **LB-Phone**, for FiveM roleplay servers. Works with E
 | `Config.Locale` | Translation file to load from `locales/` |
 | `Config.Jobs` | Maps `police` / `ambulance` / `mechanic` to your actual job names |
 | `Config.TimeOut` | Seconds between dispatch messages a player can send |
-| `Config.DispatchSystem` | `'framework'`, `'lb-tablet'`, `'qs-dispatch'`, `'aty'`, `'cd_dispatch'`, or `'custom'` |
+| `Config.DispatchSystem` | `'app'` (built-in queue, see below), `'framework'`, `'lb-tablet'`, `'qs-dispatch'`, `'aty'`, `'cd_dispatch'`, or `'custom'` |
+| `Config.DispatchExpireMinutes` | how long an unaccepted `'app'` dispatch stays in the queue |
+| `Config.Postals` | `{enabled, file}` — postal-code lookup table shown on `'app'` dispatches |
 | `Config.Notification` | `'lb-phone'`, `'framework'`, `'mfp'`, `'lux'`, or `'custom'` |
 | `Config.Blip` | Map blip sprite/scale/colour/duration for received dispatches |
 
 For `Config.Framework = 'custom'`, implement `GetPlayerData()` in `bridge/custom/client.lua`. For `Config.DispatchSystem = 'custom'` / `Config.Notification = 'custom'`, implement `SendCustomDispatch()` / `SendCustomNotify()` in `config/config.lua`.
+
+## Built-in dispatch queue (`Config.DispatchSystem = 'app'`)
+
+Job members whose job is in `Config.Jobs` see a "Notrufe" button in the app: it lists open dispatches (title, time, postal), with Accept (sets a waypoint/blip) and Decline. Sources of a dispatch:
+
+- Citizens using the app's SOS message screen
+- Any other resource, via `exports['<this-resource-name>']:CreateAlertDispatch(coords, message, targetJob, dispatchType)` — same signature as `asuna_dispatch`'s export, for drop-in replacement of that resource (e.g. a robbery or medic script reporting an alert)
 
 ## Adding a translation
 

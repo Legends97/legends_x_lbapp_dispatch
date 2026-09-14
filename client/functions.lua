@@ -1,14 +1,14 @@
 
 local activeBlips = {}
 
-function createBlip(coords)
+function createBlip(coords, label)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
     SetBlipSprite(blip, 137)
     SetBlipScale(blip, 1.5)
     SetBlipColour(blip, 1)
     SetBlipAsShortRange(blip, false)
     BeginTextCommandSetBlipName('STRING')
-    AddTextComponentString(Translation['emergency'])
+    AddTextComponentString(label or Translation['emergency'])
     EndTextCommandSetBlipName(blip)
 
     table.insert(activeBlips, blip)
@@ -60,7 +60,9 @@ function createDispatch(data)
     local gameTime = string.format("%02d:%02d:%02d", hours, minutes, seconds)
 
     -- Dispatches
-    if Config.DispatchSystem == 'lb-tablet' then
+    if Config.DispatchSystem == 'app' then
+        TriggerServerEvent('mfp_lb-dispatches:app:create', myPos, department, message)
+    elseif Config.DispatchSystem == 'lb-tablet' then
         local lbDispatch = {
                 priority = 'medium',
                 code = Config.CallCode,

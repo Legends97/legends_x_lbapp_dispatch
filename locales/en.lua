@@ -8,4 +8,5 @@ return {
     ['location'] = 'Location',
     ['unknown_location'] = 'Unknown location',
     ['time'] = 'Time',
+    ['dispatch_accepted_notify'] = 'Your emergency call has been accepted',
 }

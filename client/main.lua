@@ -43,3 +43,46 @@ AddEventHandler('mfp_lb-dispatches:showDispatchDefault', function(coords, jobNam
         end
 
 end)
+
+------------ APP DISPATCH QUEUE --------
+
+ActiveDispatches = {}
+
+local function myJob()
+    local playerData = GetPlayerData()
+    return playerData and playerData.job and playerData.job.name
+end
+
+RegisterNetEvent('mfp_lb-dispatches:app:add')
+AddEventHandler('mfp_lb-dispatches:app:add', function(dispatch)
+    if dispatch.targetJob ~= myJob() then return end
+
+    ActiveDispatches[dispatch.id] = dispatch
+    SendNUIMessage({ action = 'addDispatch', dispatch = dispatch })
+    notifyPlayer(Translation['dispatch_got'], Translation['dispatch']..": "..dispatch.title)
+end)
+
+RegisterNetEvent('mfp_lb-dispatches:app:remove')
+AddEventHandler('mfp_lb-dispatches:app:remove', function(id)
+    ActiveDispatches[id] = nil
+    SendNUIMessage({ action = 'removeDispatch', id = id })
+end)
+
+RegisterNetEvent('mfp_lb-dispatches:app:sync')
+AddEventHandler('mfp_lb-dispatches:app:sync', function(dispatches)
+    ActiveDispatches = {}
+    for _, dispatch in ipairs(dispatches) do
+        ActiveDispatches[dispatch.id] = dispatch
+    end
+    SendNUIMessage({ action = 'setDispatches', dispatches = dispatches })
+end)
+
+RegisterNetEvent('mfp_lb-dispatches:app:accepted')
+AddEventHandler('mfp_lb-dispatches:app:accepted', function(data)
+    createBlip(data.coords, Translation['emergency']..' | Postal '..data.postal)
+end)
+
+RegisterNetEvent('mfp_lb-dispatches:app:notifyAccepted')
+AddEventHandler('mfp_lb-dispatches:app:notifyAccepted', function()
+    notifyPlayer(Translation['dispatch'], Translation['dispatch_accepted_notify'])
+end)
