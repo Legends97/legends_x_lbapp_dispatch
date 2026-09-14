@@ -3,7 +3,7 @@ Config = {}
 ----------- App Settings -------
 Config.AppName = "Dispatch"
 -- Displayed Name for OS & AppStore
-Config.Description = "Sende Notrufe"
+Config.Description = "Empfange und bearbeite Notrufe"
 -- Displayed Description for AppStore
 Config.DefaultApp = true
 -- 'true' sets App Pre-Installed, 'false' requires download via AppStore
