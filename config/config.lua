@@ -1,9 +1,9 @@
 Config = {}
 
 ----------- App Settings -------
-Config.AppName = "SOS"
+Config.AppName = "Dispatch"
 -- Displayed Name for OS & AppStore
-Config.Description = "Sende Notrufe an das ARPD, ARRS oder Vega Performance"
+Config.Description = "Sende Notrufe"
 -- Displayed Description for AppStore
 Config.DefaultApp = true
 -- 'true' sets App Pre-Installed, 'false' requires download via AppStore
@@ -26,8 +26,7 @@ Config.Locale = 'de' -- see folder: locales/*lua for all translations
 
 Config.Jobs = {
     police = 'arpd',
-    ambulance = 'arrs',
-    mechanic = 'vega_performance'
+    ambulance = 'armd',
     -- 'police' sets police job name
     -- 'ambulance' sets ambulance/fire job name
     -- 'mechanic' sets mechanic/bennys job name

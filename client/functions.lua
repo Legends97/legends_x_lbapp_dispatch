@@ -84,8 +84,8 @@ function createDispatch(data)
         else
             TriggerServerEvent('mfp_lb-dispatches:sendDispatchToAll', myPos, data.job, data.message)
         end
-    elseif Config.DispatchSystem == 'qs-dispatches' then
-        TriggerServerEvent('mfp_lb-dispatches:qs-dispatch:sendMessage', data.job, data.message, myPos)
+    elseif Config.DispatchSystem == 'qs-dispatch' then
+        TriggerServerEvent('mfp_lb-dispatches:qs-dispatch:sendDispatch', data.job, data.message, myPos)
     elseif Config.DispatchSystem == 'core' then
         TriggerServerEvent("core_dispatch:addCall", 
   		    Config.CallCode, 

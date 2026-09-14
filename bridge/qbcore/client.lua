@@ -19,8 +19,7 @@ end)
 -- client
 
 function GetPlayerData()
-    local player = PlayerPedId()
-    local playerData = QBCore.Functions.GetPlayerData()
+    local playerData = QB.Functions.GetPlayerData()
 
     return playerData
 end
