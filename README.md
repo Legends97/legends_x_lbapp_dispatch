@@ -12,7 +12,7 @@ Custom Dispatches App for **LB-Phone**, for FiveM roleplay servers. Works with E
 - Fully configurable in `config/config.lua`
 - Works with custom notification scripts
 - Integrates with QS-Dispatch, LB-Tablet, Core-Dispatch, ATY Dispatch, CD Dispatch, or a fully custom dispatch handler
-- Included languages: English, German, French, Spanish, Italian, Portuguese/Brazilian (`locales/*.lua`)
+- Included languages: English, German, French, Spanish, Italian, Portuguese, Brazilian Portuguese, Dutch, Polish, Russian, Turkish (`locales/*.lua`)
 
 ## Dependencies
 
