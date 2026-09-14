@@ -72,6 +72,28 @@ exports('CreateAlertDispatch', function(coords, message, targetJob, dispatchType
     return CreateDispatch(coords, targetJob, message, dispatchType or 'alert', nil)
 end)
 
+local function CreateDeathDispatch(playerSource)
+    local ped = GetPlayerPed(playerSource)
+    local coords = GetEntityCoords(ped)
+
+    return CreateDispatch(coords, Config.Jobs.ambulance, Translation['downed_person'], 'downed', playerSource)
+end
+
+exports('CreateDeathDispatchFromDeathscreen', function(playerId)
+    return CreateDeathDispatch(playerId)
+end)
+
+-- Legacy event name from asuna_dispatch, kept so the medic script needs no changes
+RegisterNetEvent('asuna_dispatch:serverCreateFromDeathscreen')
+AddEventHandler('asuna_dispatch:serverCreateFromDeathscreen', function()
+    CreateDeathDispatch(source)
+end)
+
+RegisterNetEvent('mfp_lb-dispatches:serverCreateFromDeathscreen')
+AddEventHandler('mfp_lb-dispatches:serverCreateFromDeathscreen', function()
+    CreateDeathDispatch(source)
+end)
+
 RegisterNetEvent('mfp_lb-dispatches:app:create')
 AddEventHandler('mfp_lb-dispatches:app:create', function(coords, jobName, message)
     local src = source

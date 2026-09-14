@@ -9,4 +9,5 @@ return {
     ['unknown_location'] = 'Bilinmeyen konum',
     ['time'] = 'Zaman',
     ['dispatch_accepted_notify'] = 'Acil durum çağrınız kabul edildi',
+    ['downed_person'] = 'Bilinci kapalı kişi',
 }

@@ -9,4 +9,5 @@ return {
     ['unknown_location'] = 'Unbekannter Ort',
     ['time'] = 'Zeit',
     ['dispatch_accepted_notify'] = 'Dein Notruf wurde angenommen',
+    ['downed_person'] = 'Bewusstlose Person',
 }

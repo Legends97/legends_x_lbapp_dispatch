@@ -9,4 +9,5 @@ return {
     ['unknown_location'] = 'Onbekende locatie',
     ['time'] = 'Tijd',
     ['dispatch_accepted_notify'] = 'Je noodoproep is geaccepteerd',
+    ['downed_person'] = 'Bewusteloos persoon',
 }

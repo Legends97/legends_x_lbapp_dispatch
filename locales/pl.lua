@@ -9,4 +9,5 @@ return {
     ['unknown_location'] = 'Nieznana lokalizacja',
     ['time'] = 'Czas',
     ['dispatch_accepted_notify'] = 'Twoje wezwanie alarmowe zostało przyjęte',
+    ['downed_person'] = 'Nieprzytomna osoba',
 }

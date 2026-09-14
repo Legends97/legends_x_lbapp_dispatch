@@ -9,4 +9,5 @@ return {
     ['unknown_location'] = 'Localização desconhecida',
     ['time'] = 'Hora',
     ['dispatch_accepted_notify'] = 'Sua chamada de emergência foi aceita',
+    ['downed_person'] = 'Pessoa inconsciente',
 }
