@@ -1,33 +1,79 @@
 local identifier = "mfp_lb-dispatches"
+local appAdded = false
+
+local function isEligibleJob(job)
+    for _, configuredJob in pairs(Config.Jobs) do
+        if configuredJob == job then
+            return true
+        end
+    end
+    return false
+end
+
+local function AddApp()
+    if appAdded then return end
+
+    local added, errorMessage = exports["lb-phone"]:AddCustomApp({
+        identifier = identifier,
+        name = Config.AppName,
+        description = Config.Description,
+        developer = "MFPSCRIPTS.com",
+        defaultApp = Config.DefaultApp,
+        size = Config.Size,
+        images = Config.Images,
+        ui = GetCurrentResourceName() .. "/html/index.html",
+        icon = "https://cfx-nui-" .. GetCurrentResourceName() .. "/html/app.png"
+    })
+
+    if added then
+        appAdded = true
+    else
+        print("Could not add app:", errorMessage)
+    end
+end
+
+local function RemoveApp()
+    if not appAdded then return end
+
+    local removed, errorMessage = exports["lb-phone"]:RemoveCustomApp(identifier)
+
+    if removed then
+        appAdded = false
+    else
+        print("Could not remove app:", errorMessage)
+    end
+end
+
+-- Only players whose job is in Config.Jobs get the app (police/ambulance/etc),
+-- citizens never see it. Call this again whenever the local player's job changes.
+function RefreshDispatchAppVisibility()
+    if not Loaded then return end
+
+    local playerData = GetPlayerData()
+    local job = playerData and playerData.job and playerData.job.name
+
+    if isEligibleJob(job) then
+        AddApp()
+    else
+        RemoveApp()
+    end
+end
 
 CreateThread(function ()
     while GetResourceState("lb-phone") ~= "started" do
         Wait(500)
     end
 
-    local function AddApp()
-        local added, errorMessage = exports["lb-phone"]:AddCustomApp({
-            identifier = identifier,
-            name = Config.AppName,
-            description = Config.Description,
-            developer = "MFPSCRIPTS.com",
-            defaultApp = Config.DefaultApp,
-            size = Config.Size,
-            images = Config.Images,
-            ui = GetCurrentResourceName() .. "/html/index.html",
-            icon = "https://cfx-nui-" .. GetCurrentResourceName() .. "/html/app.png"
-        })
-
-        if not added then
-            print("Could not add app:", errorMessage)
-        end
+    while not Loaded do
+        Wait(500)
     end
 
-    AddApp()
+    RefreshDispatchAppVisibility()
 
     AddEventHandler("onResourceStart", function(resource)
         if resource == "lb-phone" then
-            AddApp()
+            appAdded = false
+            RefreshDispatchAppVisibility()
         end
     end)
 end)

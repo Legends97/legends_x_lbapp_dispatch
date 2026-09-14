@@ -21,6 +21,11 @@ RegisterNetEvent("esx:playerLoaded", function(playerData)
     ESX.PlayerLoaded = true
 end)
 
+RegisterNetEvent("esx:setJob", function(job)
+    ESX.PlayerData.job = job
+    if RefreshDispatchAppVisibility then RefreshDispatchAppVisibility() end
+end)
+
 function Notify(text, errType)
     ESX.ShowNotification(text, errType)
 end
