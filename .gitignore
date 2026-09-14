@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+.mcp.json
+RICHTLINIE.md
+CLAUDE.md
+
+# Logs
+*.log

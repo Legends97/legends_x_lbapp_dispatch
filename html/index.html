@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Notruf App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Screen 1: Keep Pointing at Satellite -->
+    <div id="screen1">
+      <div class="satellite-indicator">
+        <img src="satellite-icon.png" alt="Satellite Indicator">
+      </div>
+      <h3 style="color: #a8e3a0;">CONNECTED</h3>
+      <!-- <p>Weiter auf den Satelliten zeigen</p> -->
+      <button id="message-button" class="rounded-button"><i class="fas fa-comment"></i> Message</button>
+      <button id="call-button" class="rounded-button"><i class="fas fa-phone-alt"></i> Call</button>
+    </div>
+
+    <!-- Screen 2: What's the emergency? -->
+    <div id="screen2" style="display: none;">
+      <h2>Was ist los?</h2>
+      <button class="emergency-type" data-value="mechanic"><i class="fas fa-car" style="color: #a8e3a0;"></i> Fahrzeugproblem</button>
+      <button class="emergency-type" data-value="ambulance"><i class="fas fa-heartbeat" style="color: #a8e3a0;"></i> Krankheit oder Verletzung</button>
+      <button class="emergency-type" data-value="police"><i class="fas fa-shield-alt" style="color: #a8e3a0;"></i> Kriminalität</button>
+    </div>
+
+    <!-- Screen 3: Message Entry for Emergency -->
+    <div id="screen3" style="display: none;">
+      <div class="satellite-confirmation">
+        <img src="satellite2-icon.png" alt="Satellite Confirmation" onclick="returnToScreen1()">
+      </div>
+      <h2>Notruf SOS über Satellit</h2>
+      <p>Seien Sie im Freien, um eine Verbindung herzustellen.</p>
+      <p>Nachrichten dauern länger zum Senden.</p>
+      <p>Beantworten Sie Fragen, um eine schnellere Reaktion zu erhalten.</p>
+      <textarea id="message" placeholder="Geben Sie hier Ihre Nachricht ein..."></textarea>
+      <p class="disclaimer">Ihre Position und Medizinische ID können geteilt werden.</p>
+      <button id="send-message" class="rounded-button"><i class="fas fa-paper-plane"></i> Notfall melden</button>
+    </div>
+
+    <!-- Screen 4: Call Confirmation for Emergency -->
+    <div id="screen4" style="display: none;">
+      <div class="satellite-confirmation">
+        <img src="satellite2-icon.png" alt="Satellite Confirmation" onclick="returnToScreen1()">
+      </div>
+      <h2>Notruf SOS über Satellit</h2>
+      <p>Seien Sie im Freien, um eine Verbindung herzustellen.</p>
+      <p>Beantworten Sie Fragen, um eine schnellere Reaktion zu erhalten.</p>
+      <p class="disclaimer">Ihre Position und Medizinische ID können geteilt werden.</p>
+      <button id="make-call" class="rounded-button"><i class="fas fa-phone"></i> Notfall anrufen</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
