@@ -3,9 +3,9 @@ local activeBlips = {}
 
 function createBlip(coords, label)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
-    SetBlipSprite(blip, 137)
-    SetBlipScale(blip, 1.5)
-    SetBlipColour(blip, 1)
+    SetBlipSprite(blip, Config.Blip.sprite)
+    SetBlipScale(blip, Config.Blip.scale)
+    SetBlipColour(blip, Config.Blip.colour)
     SetBlipAsShortRange(blip, false)
     BeginTextCommandSetBlipName('STRING')
     AddTextComponentString(label or Translation['emergency'])
@@ -15,7 +15,7 @@ function createBlip(coords, label)
 
     SetNewWaypoint(coords.x, coords.y)
 
-    Citizen.SetTimeout(420000, function()
+    Citizen.SetTimeout(Config.Blip.time * 1000, function()
         if DoesBlipExist(blip) then
             RemoveBlip(blip)
         end
@@ -44,94 +44,3 @@ function notifyPlayer(ttl, msg, data)
         Notify(msg)
     end
 end
-
-
-function createDispatch(data)
-    local department = data.job
-    local message = data.message
-
-    local ped = PlayerPedId()
-    local myPos = GetEntityCoords(ped)
-    local streetHash = GetStreetNameAtCoord(myPos.x, myPos.y, myPos.z)
-    local streetName = GetStreetNameFromHashKey(streetHash) or Translation['unknown_location']
-
-        -- Placeholder for player sex (FiveM does not provide this natively)
-    local hours, minutes, seconds = GetClockHours(), GetClockMinutes(), GetClockSeconds()
-    local gameTime = string.format("%02d:%02d:%02d", hours, minutes, seconds)
-
-    -- Dispatches
-    if Config.DispatchSystem == 'app' then
-        TriggerServerEvent('mfp_lb-dispatches:app:create', myPos, department, message)
-    elseif Config.DispatchSystem == 'lb-tablet' then
-        local lbDispatch = {
-                priority = 'medium',
-                code = Config.CallCode,
-                title = Translation['emergency'],
-                description = message..' ('..streetName..')',
-                location = {
-                    label = Translation['emergency'],
-                    coords = { x = myPos.x, y = myPos.y } -- Ensuring correct format
-                },
-                time = 400, -- Dispatch lasts for 5 minutes
-                job = department, -- Police only
-                fields = {
-                    { icon = 'map-marker', label = Translation['location'], value = streetName },
-                    { icon = 'clock', label = Translation['time'], value = gameTime }
-                }
-            }
-    
-        if data.job == Config.Jobs.police or data.job == Config.Jobs.ambulance then
-            TriggerServerEvent('mfp_lb-dispatches:lb-tablet:triggerDispatch', lbDispatch)
-            -- NOTE: LB-Tablet only supports police and ambulance, rest will be framework
-        else
-            TriggerServerEvent('mfp_lb-dispatches:sendDispatchToAll', myPos, data.job, data.message)
-        end
-    elseif Config.DispatchSystem == 'qs-dispatch' then
-        TriggerServerEvent('mfp_lb-dispatches:qs-dispatch:sendDispatch', data.job, data.message, myPos)
-    elseif Config.DispatchSystem == 'core' then
-        TriggerServerEvent("core_dispatch:addCall", 
-  		    Config.CallCode, 
-  		    Translation['emergency'], 
-  		    {
-    	        {icon = "fa-bullhorn", info = data.message}
-  		    },
-  		    { 
-                playerCoords.x, playerCoords.y, playerCoords.z 
-            },
- 		    data.job,
-  		    5000,
-  		    60, 
-  		    1
-		)
-    elseif Config.DispatchSystem == 'aty' then
-        TriggerEvent("aty_dispatch:SendDispatch",Translation['emergency'].." - "..data.message, Config.CallCode, 60, {"police"})
-    elseif Config.DispatchSystem == 'cd_dispatch' then
-        local data = exports['cd_dispatch']:GetPlayerInfo()
-        TriggerServerEvent('cd_dispatch:AddNotification', {
-            job_table = {data.job}, 
-            coords = data.coords,
-            title = Config.CallCode..' - '..Translation['emergency'],
-            message = data.message, 
-            flash = 0,
-            unique_id = data.unique_id,
-            sound = 1,
-            blip = {
-                sprite = 431, 
-                scale = 1.2, 
-                colour = 3,
-                flashes = false, 
-                text = Translation['emergency'],
-                time = 5,
-                radius = 0,
-            }
-        })
-    elseif Config.DispatchSystem == 'framework' then
-        TriggerServerEvent('mfp_lb-dispatches:sendDispatchToAll', myPos, data.job, data.message)
-    else
-        if Config.useCustomDispatchClientside then
-            SendCustomDispatch(data.job, myPos, data.message)
-        else
-            TriggerServerEvent('mfp_lb-dispatches:sendCustomDispatch', myPos, data.job, data.message)
-        end
-    end
-end -- end of function

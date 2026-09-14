@@ -33,17 +33,6 @@ Config.Jobs = {
 }
 
 ------------ DISPATCH & SETTINGS --------
-Config.TimeOut = 10 -- in seconds, until the message button can be used again to send dispatch
-Config.CallCode = "10-19"
-Config.DispatchSystem = 'app'
--- 'app' for the built-in dispatch queue in this App (list, accept, waypoint)
--- 'framework' for default core dispatch
--- 'lb-tablet' for LB-Tablet (only Police & Ambulance, others are using framework!)
--- 'qs-dispatch' for Quasar Dispatch
--- 'aty' for aty_dispatch
--- 'cd_dispatch' for cd_dispatch
--- 'custom' for custom script
-
 Config.DispatchExpireMinutes = 15
 -- how long an unaccepted dispatch stays in the App's queue before it auto-expires
 
@@ -61,12 +50,6 @@ Config.Notification = 'lb-phone'
 -- 'custom' uses SendCustomNotify
 
 function SendCustomNotify(title, message)
-    -- add your own here
-end
-
-Config.useCustomDispatchClientside = true
--- false if you want this to be serverside, default true
-function SendCustomDispatch(job, pos, message)
     -- add your own here
 end
 

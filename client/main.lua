@@ -78,18 +78,6 @@ CreateThread(function ()
     end)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:showDispatchDefault')
-AddEventHandler('mfp_lb-dispatches:showDispatchDefault', function(coords, jobName, message)
-    local player = PlayerPedId()
-    local playerData = GetPlayerData()
-
-    if playerData.job and playerData.job.name == jobName then
-            notifyPlayer(Translation['dispatch_got'], Translation['dispatch']..": "..message)
-            createBlip(coords)
-        end
-
-end)
-
 ------------ APP DISPATCH QUEUE --------
 
 ActiveDispatches = {}
