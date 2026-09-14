@@ -1,13 +1,12 @@
 return {
     ['emergency'] = 'Chiamata di emergenza da un cittadino',
-    ['send_via_sos_app'] = 'La chiamata di emergenza è stata effettuata tramite l\'app SOS',
     ['dispatch'] = 'Emergenza',
-    ['dispatch_send'] = 'Chiamata di emergenza inviata',
     ['dispatch_got'] = 'Chiamata di emergenza ricevuta',
-    ['dispatch_message'] = 'Messaggio trasmesso',
-    ['location'] = 'Località',
-    ['unknown_location'] = 'Località sconosciuta',
-    ['time'] = 'Ora',
     ['dispatch_accepted_notify'] = 'La tua chiamata di emergenza è stata accettata',
     ['downed_person'] = 'Persona incosciente',
+    ['on_duty'] = 'In servizio',
+    ['no_active_dispatches'] = 'Nessuna chiamata attiva',
+    ['accept'] = 'Accetta',
+    ['decline'] = 'Rifiuta',
+    ['postal'] = 'Postal',
 }

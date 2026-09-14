@@ -14,7 +14,17 @@ RegisterNUICallback('app:ready', function(data, cb)
         TriggerServerEvent('mfp_lb-dispatches:app:requestOpen', job)
     end
 
-    cb({ isDispatchJob = isDispatchJob })
+    cb({
+        isDispatchJob = isDispatchJob,
+        appName = Config.AppName,
+        i18n = {
+            onDuty = Translation['on_duty'],
+            noActiveDispatches = Translation['no_active_dispatches'],
+            accept = Translation['accept'],
+            decline = Translation['decline'],
+            postal = Translation['postal'],
+        },
+    })
 end)
 
 RegisterNUICallback('app:accept', function(data, cb)

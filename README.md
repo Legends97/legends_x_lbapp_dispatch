@@ -7,6 +7,7 @@ Dispatch-receiving App for **LB-Phone**: players whose job is in `Config.Jobs` g
 ## Features
 
 - Compatible with ESX, QB-Core, and custom frameworks
+- App UI text follows `Config.Locale` too, not just server-side notifications
 - App is only added to players whose job is in `Config.Jobs` — citizens never see it, and it's added/removed live on job change
 - Dispatch list with postal-code lookup, Accept/Decline, auto-expiry
 - `exports('CreateAlertDispatch', ...)` for other resources (robbery, medic, etc.) to report an alert

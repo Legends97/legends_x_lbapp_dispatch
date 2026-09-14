@@ -1,13 +1,12 @@
 return {
     ['emergency'] = 'Bir vatandaştan gelen acil durum çağrısı',
-    ['send_via_sos_app'] = 'Acil durum çağrısı SOS uygulaması üzerinden gönderildi',
     ['dispatch'] = 'Acil durum çağrısı',
-    ['dispatch_send'] = 'Acil durum çağrısı gönderildi',
     ['dispatch_got'] = 'Acil durum çağrısı alındı',
-    ['dispatch_message'] = 'İletilen mesaj',
-    ['location'] = 'Konum',
-    ['unknown_location'] = 'Bilinmeyen konum',
-    ['time'] = 'Zaman',
     ['dispatch_accepted_notify'] = 'Acil durum çağrınız kabul edildi',
     ['downed_person'] = 'Bilinci kapalı kişi',
+    ['on_duty'] = 'Görevde',
+    ['no_active_dispatches'] = 'Aktif çağrı yok',
+    ['accept'] = 'Kabul et',
+    ['decline'] = 'Reddet',
+    ['postal'] = 'Posta Kodu',
 }

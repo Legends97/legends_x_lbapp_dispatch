@@ -1,13 +1,12 @@
 return {
     ['emergency'] = 'Wezwanie alarmowe od obywatela',
-    ['send_via_sos_app'] = 'Wezwanie alarmowe zostało wysłane przez aplikację SOS',
     ['dispatch'] = 'Wezwanie alarmowe',
-    ['dispatch_send'] = 'Wezwanie alarmowe zostało wysłane',
     ['dispatch_got'] = 'Otrzymano wezwanie alarmowe',
-    ['dispatch_message'] = 'Przesłana wiadomość',
-    ['location'] = 'Lokalizacja',
-    ['unknown_location'] = 'Nieznana lokalizacja',
-    ['time'] = 'Czas',
     ['dispatch_accepted_notify'] = 'Twoje wezwanie alarmowe zostało przyjęte',
     ['downed_person'] = 'Nieprzytomna osoba',
+    ['on_duty'] = 'Na służbie',
+    ['no_active_dispatches'] = 'Brak aktywnych wezwań',
+    ['accept'] = 'Przyjmij',
+    ['decline'] = 'Odrzuć',
+    ['postal'] = 'Postal',
 }

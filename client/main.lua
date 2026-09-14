@@ -113,7 +113,7 @@ end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:accepted')
 AddEventHandler('mfp_lb-dispatches:app:accepted', function(data)
-    createBlip(data.coords, Translation['emergency']..' | Postal '..data.postal)
+    createBlip(data.coords, Translation['emergency']..' | '..Translation['postal']..' '..data.postal)
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:notifyAccepted')
