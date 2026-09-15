@@ -1,14 +1,11 @@
-// Only reachable inside FiveM's NUI - avoids hanging fetches when previewing this file in a plain browser
-const inGame = typeof window.invokeNative === 'function';
+// LB-Phone injects fetchNui/onNuiEvent into the custom-app iframe - only reachable there,
+// not when previewing this file in a plain browser
+const inGame = typeof window.fetchNui === 'function';
 
 function callApp(endpoint, body) {
   if (!inGame) return Promise.resolve({});
 
-  return fetch(`https://${GetParentResourceName()}/${endpoint}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body || {}),
-  }).then((resp) => resp.json());
+  return fetchNui(endpoint, body || {});
 }
 
 // German defaults for browser preview / before app:ready resolves - overwritten by Config.Locale in-game
@@ -85,17 +82,11 @@ function setDispatches(dispatches) {
   updateDispatchEmptyState();
 }
 
-window.addEventListener('message', (event) => {
-  const data = event.data;
-
-  if (data.action === 'addDispatch') {
-    addOrUpdateDispatchCard(data.dispatch);
-  } else if (data.action === 'removeDispatch') {
-    removeDispatchCard(data.id);
-  } else if (data.action === 'setDispatches') {
-    setDispatches(data.dispatches);
-  }
-});
+if (inGame) {
+  onNuiEvent('addDispatch', addOrUpdateDispatchCard);
+  onNuiEvent('removeDispatch', removeDispatchCard);
+  onNuiEvent('setDispatches', setDispatches);
+}
 
 callApp('app:ready', {}).then((res) => {
   applyI18n(res);

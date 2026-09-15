@@ -92,14 +92,14 @@ AddEventHandler('mfp_lb-dispatches:app:add', function(dispatch)
     if dispatch.targetJob ~= myJob() then return end
 
     ActiveDispatches[dispatch.id] = dispatch
-    SendNUIMessage({ action = 'addDispatch', dispatch = dispatch })
+    exports["lb-phone"]:SendCustomAppMessage(identifier, 'addDispatch', dispatch)
     notifyPlayer(Translation['dispatch_got'], Translation['dispatch']..": "..dispatch.title)
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:remove')
 AddEventHandler('mfp_lb-dispatches:app:remove', function(id)
     ActiveDispatches[id] = nil
-    SendNUIMessage({ action = 'removeDispatch', id = id })
+    exports["lb-phone"]:SendCustomAppMessage(identifier, 'removeDispatch', id)
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:sync')
@@ -108,7 +108,7 @@ AddEventHandler('mfp_lb-dispatches:app:sync', function(dispatches)
     for _, dispatch in ipairs(dispatches) do
         ActiveDispatches[dispatch.id] = dispatch
     end
-    SendNUIMessage({ action = 'setDispatches', dispatches = dispatches })
+    exports["lb-phone"]:SendCustomAppMessage(identifier, 'setDispatches', dispatches)
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:accepted')
