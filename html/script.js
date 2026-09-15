@@ -4,7 +4,7 @@ const inGame = typeof window.invokeNative === 'function';
 function callApp(endpoint, body) {
   if (!inGame) return Promise.resolve({});
 
-  return fetch(`https://mfp_lb-dispatches/${endpoint}`, {
+  return fetch(`https://${GetParentResourceName()}/${endpoint}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body || {}),
