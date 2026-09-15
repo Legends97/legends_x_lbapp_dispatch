@@ -1,4 +1,8 @@
 
+local function DebugPrint(msg)
+    if Config.Debug then print(msg) end
+end
+
 local function isValidJob(job)
     for _, configuredJob in pairs(Config.Jobs) do
         if configuredJob == job then
@@ -35,7 +39,9 @@ end
 
 local function BroadcastToJob(targetJob, event, payload)
     for _, playerId in ipairs(GetPlayers()) do
-        if GetPlayerJob(tonumber(playerId)) == targetJob then
+        local job = GetPlayerJob(tonumber(playerId))
+        DebugPrint(("^3[DEBUG]^7 BroadcastToJob: player %s has job '%s', dispatch targetJob '%s' -> %s"):format(playerId, tostring(job), targetJob, tostring(job == targetJob)))
+        if job == targetJob then
             TriggerClientEvent(event, playerId, payload)
         end
     end
@@ -98,13 +104,22 @@ RegisterNetEvent('mfp_lb-dispatches:app:requestOpen')
 AddEventHandler('mfp_lb-dispatches:app:requestOpen', function()
     local src = source
     local jobName = GetPlayerJob(src)
-    if not isValidJob(jobName) then return end
+    if not isValidJob(jobName) then
+        DebugPrint(("^1[DEBUG]^7 app:requestOpen: player %s has job '%s' -> not in Config.Jobs, no sync sent"):format(src, tostring(jobName)))
+        return
+    end
 
     local open = {}
     for _, dispatch in pairs(Dispatches) do
         if dispatch.targetJob == jobName then
             open[#open + 1] = dispatch
         end
+    end
+
+    if Config.Debug then
+        local total = 0
+        for _ in pairs(Dispatches) do total = total + 1 end
+        DebugPrint(("^3[DEBUG]^7 app:requestOpen: player %s job '%s' -> syncing %d dispatch(es) (total in queue: %d)"):format(src, jobName, #open, total))
     end
 
     TriggerClientEvent('mfp_lb-dispatches:app:sync', src, open)
