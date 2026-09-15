@@ -37,7 +37,7 @@ function notifyPlayer(ttl, msg, data)
         )
     elseif Config.Notification == 'lux' then
         LUX = exports['Lux_Lib']:getLibObject()
-        LUX.Notify(msg, ttl, 6000, info)
+        LUX.Notify(msg, ttl, 6000, nil)
     elseif Config.Notification == 'custom' then
         SendCustomNotify(ttl, msg)
     else

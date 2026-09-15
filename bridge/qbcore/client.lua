@@ -8,6 +8,10 @@ function Notify(text, errType)
     QB.Functions.Notify(text, errType)
 end
 
+RegisterNetEvent("QBCore:Client:OnJobUpdate", function()
+    if RefreshDispatchAppVisibility then RefreshDispatchAppVisibility() end
+end)
+
 CreateThread(function()
     while not LocalPlayer.state.isLoggedIn do
         Wait(500)

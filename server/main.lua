@@ -33,7 +33,20 @@ local function GetNearestPostal(coords)
     return nearest and nearest.code or 'N/A'
 end
 
+local function BroadcastToJob(targetJob, event, payload)
+    for _, playerId in ipairs(GetPlayers()) do
+        if GetPlayerJob(tonumber(playerId)) == targetJob then
+            TriggerClientEvent(event, playerId, payload)
+        end
+    end
+end
+
 local function CreateDispatch(coords, targetJob, message, dispatchType, reporterSource)
+    if not isValidJob(targetJob) then
+        print("^1[ERROR]^7 CreateDispatch: unknown targetJob '" .. tostring(targetJob) .. "', not in Config.Jobs")
+        return nil
+    end
+
     local id = nextDispatchId
     nextDispatchId = nextDispatchId + 1
 
@@ -50,7 +63,7 @@ local function CreateDispatch(coords, targetJob, message, dispatchType, reporter
         createdAt = os.time()
     }
 
-    TriggerClientEvent('mfp_lb-dispatches:app:add', -1, Dispatches[id])
+    BroadcastToJob(targetJob, 'mfp_lb-dispatches:app:add', Dispatches[id])
 
     return id
 end
@@ -82,8 +95,9 @@ AddEventHandler('mfp_lb-dispatches:serverCreateFromDeathscreen', function()
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:requestOpen')
-AddEventHandler('mfp_lb-dispatches:app:requestOpen', function(jobName)
+AddEventHandler('mfp_lb-dispatches:app:requestOpen', function()
     local src = source
+    local jobName = GetPlayerJob(src)
     if not isValidJob(jobName) then return end
 
     local open = {}
@@ -97,14 +111,14 @@ AddEventHandler('mfp_lb-dispatches:app:requestOpen', function(jobName)
 end)
 
 RegisterNetEvent('mfp_lb-dispatches:app:accept')
-AddEventHandler('mfp_lb-dispatches:app:accept', function(id, jobName)
+AddEventHandler('mfp_lb-dispatches:app:accept', function(id)
     local src = source
+    local jobName = GetPlayerJob(src)
     local dispatch = Dispatches[id]
 
     if not dispatch or dispatch.status ~= 'open' then return end
     if not isValidJob(jobName) or dispatch.targetJob ~= jobName then return end
 
-    dispatch.status = 'accepted'
     Dispatches[id] = nil
 
     TriggerClientEvent('mfp_lb-dispatches:app:remove', -1, id)

@@ -11,7 +11,7 @@ RegisterNUICallback('app:ready', function(data, cb)
     end
 
     if isDispatchJob then
-        TriggerServerEvent('mfp_lb-dispatches:app:requestOpen', job)
+        TriggerServerEvent('mfp_lb-dispatches:app:requestOpen')
     end
 
     cb({
@@ -28,10 +28,7 @@ RegisterNUICallback('app:ready', function(data, cb)
 end)
 
 RegisterNUICallback('app:accept', function(data, cb)
-    local playerData = GetPlayerData()
-    local job = playerData and playerData.job and playerData.job.name
-
-    TriggerServerEvent('mfp_lb-dispatches:app:accept', data.id, job)
+    TriggerServerEvent('mfp_lb-dispatches:app:accept', data.id)
     cb('ok')
 end)
 

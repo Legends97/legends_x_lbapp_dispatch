@@ -39,7 +39,7 @@ Dispatch-receiving App for **LB-Phone**: players whose job is in `Config.Jobs` g
 | `Config.Notification` | `'lb-phone'`, `'framework'`, `'mfp'`, `'lux'`, or `'custom'` |
 | `Config.Blip` | Map blip sprite/scale/colour/duration for the accepted dispatch's waypoint |
 
-For `Config.Framework = 'custom'`, implement `GetPlayerData()` in `bridge/custom/client.lua`. For `Config.Notification = 'custom'`, implement `SendCustomNotify()` in `config/config.lua`.
+For `Config.Framework = 'custom'`, implement `GetPlayerData()` in `bridge/custom/client.lua` and `GetPlayerJob(src)` in `bridge/custom/server.lua` (the server checks the real job there before letting a player accept a dispatch — required, not optional). For `Config.Notification = 'custom'`, implement `SendCustomNotify()` in `config/config.lua`.
 
 ## Creating dispatches
 
