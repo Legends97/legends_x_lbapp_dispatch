@@ -91,6 +91,11 @@ end)
 
 if Config.Debug then
     RegisterCommand('testdispatch', function(src)
+        if src == 0 then
+            print("^1[DEBUG]^7 /testdispatch: run this from an actual player (chat or F8 client console), not the server console")
+            return
+        end
+
         local id = CreateDeathDispatch(src)
         print(("^3[DEBUG]^7 /testdispatch: created dispatch id=%s for player %s"):format(tostring(id), src))
     end, false)
