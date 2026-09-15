@@ -6,7 +6,7 @@ if Config.Framework == "auto" then
         Config.Framework = "qb-core"
 		print("^3[INFO]^7: Loaded framework: qb-core")
     else
-        print("^3[WARNING]^7: Failed to automatically set framework. Please set it manually in mfp_extremesportshop/config/config.lua.")
+        print("^3[WARNING]^7: Failed to automatically set framework. Please set it manually in config/config.lua.")
         Config.Framework = "custom"
     end
 end

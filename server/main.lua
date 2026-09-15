@@ -69,7 +69,7 @@ local function CreateDispatch(coords, targetJob, message, dispatchType, reporter
         createdAt = os.time()
     }
 
-    BroadcastToJob(targetJob, 'mfp_lb-dispatches:app:add', Dispatches[id])
+    BroadcastToJob(targetJob, 'ls_lb-dispatches:app:add', Dispatches[id])
 
     return id
 end
@@ -89,19 +89,26 @@ exports('CreateDeathDispatchFromDeathscreen', function(playerId)
     return CreateDeathDispatch(playerId)
 end)
 
+if Config.Debug then
+    RegisterCommand('testdispatch', function(src)
+        local id = CreateDeathDispatch(src)
+        print(("^3[DEBUG]^7 /testdispatch: created dispatch id=%s for player %s"):format(tostring(id), src))
+    end, false)
+end
+
 -- Legacy event name from asuna_dispatch, kept so the medic script needs no changes
 RegisterNetEvent('asuna_dispatch:serverCreateFromDeathscreen')
 AddEventHandler('asuna_dispatch:serverCreateFromDeathscreen', function()
     CreateDeathDispatch(source)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:serverCreateFromDeathscreen')
-AddEventHandler('mfp_lb-dispatches:serverCreateFromDeathscreen', function()
+RegisterNetEvent('ls_lb-dispatches:serverCreateFromDeathscreen')
+AddEventHandler('ls_lb-dispatches:serverCreateFromDeathscreen', function()
     CreateDeathDispatch(source)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:requestOpen')
-AddEventHandler('mfp_lb-dispatches:app:requestOpen', function()
+RegisterNetEvent('ls_lb-dispatches:app:requestOpen')
+AddEventHandler('ls_lb-dispatches:app:requestOpen', function()
     local src = source
     local jobName = GetPlayerJob(src)
     if not isValidJob(jobName) then
@@ -122,11 +129,11 @@ AddEventHandler('mfp_lb-dispatches:app:requestOpen', function()
         DebugPrint(("^3[DEBUG]^7 app:requestOpen: player %s job '%s' -> syncing %d dispatch(es) (total in queue: %d)"):format(src, jobName, #open, total))
     end
 
-    TriggerClientEvent('mfp_lb-dispatches:app:sync', src, open)
+    TriggerClientEvent('ls_lb-dispatches:app:sync', src, open)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:accept')
-AddEventHandler('mfp_lb-dispatches:app:accept', function(id)
+RegisterNetEvent('ls_lb-dispatches:app:accept')
+AddEventHandler('ls_lb-dispatches:app:accept', function(id)
     local src = source
     local jobName = GetPlayerJob(src)
     local dispatch = Dispatches[id]
@@ -136,11 +143,11 @@ AddEventHandler('mfp_lb-dispatches:app:accept', function(id)
 
     Dispatches[id] = nil
 
-    TriggerClientEvent('mfp_lb-dispatches:app:remove', -1, id)
-    TriggerClientEvent('mfp_lb-dispatches:app:accepted', src, { id = id, coords = dispatch.coords, postal = dispatch.postal })
+    TriggerClientEvent('ls_lb-dispatches:app:remove', -1, id)
+    TriggerClientEvent('ls_lb-dispatches:app:accepted', src, { id = id, coords = dispatch.coords, postal = dispatch.postal })
 
     if dispatch.reporterSource then
-        TriggerClientEvent('mfp_lb-dispatches:app:notifyAccepted', dispatch.reporterSource)
+        TriggerClientEvent('ls_lb-dispatches:app:notifyAccepted', dispatch.reporterSource)
     end
 end)
 
@@ -151,7 +158,7 @@ CreateThread(function()
         for id, dispatch in pairs(Dispatches) do
             if (now - dispatch.createdAt) > (Config.DispatchExpireMinutes * 60) then
                 Dispatches[id] = nil
-                TriggerClientEvent('mfp_lb-dispatches:app:remove', -1, id)
+                TriggerClientEvent('ls_lb-dispatches:app:remove', -1, id)
             end
         end
     end

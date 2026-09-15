@@ -25,7 +25,6 @@ Config.Debug = true
 -- 'true' prints job/dispatch-queue debug info to the server console, 'false' for production
 
 Config.Locale = 'de' -- see folder: locales/*lua for all translations
--- Constribute on adding your own translation at: https://github.com/mfpscripts/TRANSLATIONS
 
 Config.Jobs = {
     police = 'arpd',
@@ -48,7 +47,6 @@ Config.Postals = {
 Config.Notification = 'lb-phone'
 -- 'lb-phone' uses lb-app-notifications
 -- 'framework' uses framework related notify
--- 'mfp' uses mfp notifications
 -- 'lux' uses lux notifications
 -- 'custom' uses SendCustomNotify
 

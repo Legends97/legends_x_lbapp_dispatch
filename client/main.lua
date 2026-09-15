@@ -1,4 +1,4 @@
-local identifier = "mfp_lb-dispatches"
+local identifier = "ls_lb-dispatches"
 local appAdded = false
 
 local function isEligibleJob(job)
@@ -17,7 +17,7 @@ local function AddApp()
         identifier = identifier,
         name = Config.AppName,
         description = Config.Description,
-        developer = "MFPSCRIPTS.com",
+        developer = "Legends Service",
         defaultApp = Config.DefaultApp,
         size = Config.Size,
         images = Config.Images,
@@ -87,8 +87,8 @@ local function myJob()
     return playerData and playerData.job and playerData.job.name
 end
 
-RegisterNetEvent('mfp_lb-dispatches:app:add')
-AddEventHandler('mfp_lb-dispatches:app:add', function(dispatch)
+RegisterNetEvent('ls_lb-dispatches:app:add')
+AddEventHandler('ls_lb-dispatches:app:add', function(dispatch)
     if dispatch.targetJob ~= myJob() then return end
 
     ActiveDispatches[dispatch.id] = dispatch
@@ -96,14 +96,14 @@ AddEventHandler('mfp_lb-dispatches:app:add', function(dispatch)
     notifyPlayer(Translation['dispatch_got'], Translation['dispatch']..": "..dispatch.title)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:remove')
-AddEventHandler('mfp_lb-dispatches:app:remove', function(id)
+RegisterNetEvent('ls_lb-dispatches:app:remove')
+AddEventHandler('ls_lb-dispatches:app:remove', function(id)
     ActiveDispatches[id] = nil
     exports["lb-phone"]:SendCustomAppMessage(identifier, 'removeDispatch', id)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:sync')
-AddEventHandler('mfp_lb-dispatches:app:sync', function(dispatches)
+RegisterNetEvent('ls_lb-dispatches:app:sync')
+AddEventHandler('ls_lb-dispatches:app:sync', function(dispatches)
     ActiveDispatches = {}
     for _, dispatch in ipairs(dispatches) do
         ActiveDispatches[dispatch.id] = dispatch
@@ -111,12 +111,12 @@ AddEventHandler('mfp_lb-dispatches:app:sync', function(dispatches)
     exports["lb-phone"]:SendCustomAppMessage(identifier, 'setDispatches', dispatches)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:accepted')
-AddEventHandler('mfp_lb-dispatches:app:accepted', function(data)
+RegisterNetEvent('ls_lb-dispatches:app:accepted')
+AddEventHandler('ls_lb-dispatches:app:accepted', function(data)
     createBlip(data.coords, Translation['emergency']..' | '..Translation['postal']..' '..data.postal)
 end)
 
-RegisterNetEvent('mfp_lb-dispatches:app:notifyAccepted')
-AddEventHandler('mfp_lb-dispatches:app:notifyAccepted', function()
+RegisterNetEvent('ls_lb-dispatches:app:notifyAccepted')
+AddEventHandler('ls_lb-dispatches:app:notifyAccepted', function()
     notifyPlayer(Translation['dispatch'], Translation['dispatch_accepted_notify'])
 end)

@@ -11,7 +11,7 @@ RegisterNUICallback('app:ready', function(data, cb)
     end
 
     if isDispatchJob then
-        TriggerServerEvent('mfp_lb-dispatches:app:requestOpen')
+        TriggerServerEvent('ls_lb-dispatches:app:requestOpen')
     end
 
     cb({
@@ -28,7 +28,7 @@ RegisterNUICallback('app:ready', function(data, cb)
 end)
 
 RegisterNUICallback('app:accept', function(data, cb)
-    TriggerServerEvent('mfp_lb-dispatches:app:accept', data.id)
+    TriggerServerEvent('ls_lb-dispatches:app:accept', data.id)
     cb('ok')
 end)
 

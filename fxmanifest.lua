@@ -4,8 +4,8 @@ game 'gta5'
 lua54 "yes"
 use_experimental_fxv2_oal "yes"
 
-name "MFP LB-Dispatches App"
-author 'MFPSCRIPTS'
+name "Legends Service LB-Dispatches App"
+author 'Legends Service'
 description 'LB Phone Dispatches App'
 version '1.1.0'
 

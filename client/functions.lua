@@ -25,16 +25,10 @@ end
 function notifyPlayer(ttl, msg, data)
     if Config.Notification == 'lb-phone' then
         exports["lb-phone"]:SendNotification({
-            app = "mfp_lb-dispatches",
+            app = "ls_lb-dispatches",
             title = ttl,
             content = msg,
         })
-    elseif Config.Notification == 'mfp' then
-        exports['mfp_notify']:ShowNotification(
-            ttl,
-            msg,
-            "icons/emergency-icon.png"
-        )
     elseif Config.Notification == 'lux' then
         LUX = exports['Lux_Lib']:getLibObject()
         LUX.Notify(msg, ttl, 6000, nil)

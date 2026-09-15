@@ -1,4 +1,4 @@
-# MFP Advanced Dispatch App for LB-Phone
+# Legends Service Dispatch App for LB-Phone
 
 ![preview](https://github.com/user-attachments/assets/f74a49fd-3f74-4514-979d-54f5590c2e33)
 
@@ -36,7 +36,7 @@ Dispatch-receiving App for **LB-Phone**: players whose job is in `Config.Jobs` g
 | `Config.Jobs` | Jobs that get the app and receive dispatches (maps `police`/`ambulance`/... to your actual job names) |
 | `Config.DispatchExpireMinutes` | how long an unaccepted dispatch stays in the queue |
 | `Config.Postals` | `{enabled, file}` — postal-code lookup table shown on dispatches |
-| `Config.Notification` | `'lb-phone'`, `'framework'`, `'mfp'`, `'lux'`, or `'custom'` |
+| `Config.Notification` | `'lb-phone'`, `'framework'`, `'lux'`, or `'custom'` |
 | `Config.Blip` | Map blip sprite/scale/colour/duration for the accepted dispatch's waypoint |
 
 For `Config.Framework = 'custom'`, implement `GetPlayerData()` in `bridge/custom/client.lua` and `GetPlayerJob(src)` in `bridge/custom/server.lua` (the server checks the real job there before letting a player accept a dispatch — required, not optional). For `Config.Notification = 'custom'`, implement `SendCustomNotify()` in `config/config.lua`.
@@ -51,7 +51,7 @@ The app itself has no "send" UI — dispatches come from other resources:
 
 ## Adding a translation
 
-Copy `locales/en.lua`, translate the strings, save as `locales/<code>.lua`, then set `Config.Locale = '<code>'`. Contribute translations upstream at https://github.com/mfpscripts/TRANSLATIONS.
+Copy `locales/en.lua`, translate the strings, save as `locales/<code>.lua`, then set `Config.Locale = '<code>'`.
 
 ## Support
 
